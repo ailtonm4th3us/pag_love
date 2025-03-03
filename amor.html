@@ -6,8 +6,8 @@
     <title>Nosso Amor</title>
     <style>
         body {
-            width: 100vw;  /* Ocupa toda a largura da tela */
-            height: 100vh; /* Ocupa toda a altura da tela */
+            width: 100vw;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -16,19 +16,16 @@
             font-family: Arial, sans-serif;
             text-align: center;
             overflow: hidden;
-        }
-        .line {
-            width: 90%;
-            height: 2px;
-            background-color: #e91e63;
-            margin: 20px 0;
+            margin: 0;
         }
         img {
-            width: 400px;
-            height: 500px;
+            width: 100%; /* Ajusta a imagem para ocupar 100% da largura disponível */
+            max-width: 400px; /* Limita o tamanho máximo */
+            height: auto; /* Mantém a proporção */
             object-fit: cover;
             border-radius: 10px;
             margin: 20px 0;
+            transition: opacity 0.5s ease-in-out; /* Adiciona uma transição suave */
         }
         .heart {
             position: absolute;
@@ -46,35 +43,48 @@
                 opacity: 0;
             }
         }
+        iframe {
+            width: 100%;
+            max-width: 400px;
+            height: 80px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            transition: all 0.5s ease-in-out;
+        }
+        h2, h3 {
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
-    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/44AyOl4qVkzS48vBsbNXaC?si=63323997a5bd423c" width="400" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    <iframe src="https://open.spotify.com/embed/track/44AyOl4qVkzS48vBsbNXaC?si=63323997a5bd423c" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
     
     <img id="photo" src="img/foto1.jpg" alt="Nosso Amor">
     
     <h2>Eu te amo há <span id="diasAmor"></span> dias ❤️</h2>
-    <div class="line"></div>
-    <h3>Ei minha parceirinha tu estás conversando pipoca, uma hora dessa?</h3>
-    <h3>Eu te amo!</h3>
+    <h4>Ei minha parceirinha tu estás conversando pipoca uma hora dessa?</h4>
     <script>
         function calcularDias() {
-            const dataInicio = new Date('2022-11-05'); // Coloque a data do início do relacionamento
+            const dataInicio = new Date('2022-11-05');
             const hoje = new Date();
             const diferenca = Math.floor((hoje - dataInicio) / (1000 * 60 * 60 * 24));
             document.getElementById('diasAmor').textContent = diferenca;
         }
         calcularDias();
 
-        // Troca automática de imagens
-        const imagens = ["img/foto1.jpg", "img/foto2.jpg", "img/foto3.jpg", "img/foto4.jpg", 
-        "img/foto5.jpg","img/foto6.jpg"]; // Adicione mais imagens se quiser
+        // Troca de imagem sem carregar várias resoluções
+        const imagens = ["img/foto1.jpg", "img/foto2.jpg", "img/foto3.jpg", "img/foto4.jpg", "img/foto5.jpg","img/foto6.jpg"];
         let index = 0;
         function trocarImagem() {
             index = (index + 1) % imagens.length;
-            document.getElementById('photo').src = imagens[index];
+            const img = document.getElementById('photo');
+            img.style.opacity = 0; // Fade out
+            setTimeout(() => {
+                img.src = imagens[index];
+                img.style.opacity = 1; // Fade in
+            }, 500); // Espera a opacidade cair para trocar a imagem
         }
-        setInterval(trocarImagem, 3000); // Troca a cada 3 segundos
+        setInterval(trocarImagem, 3000);
 
         // Corações caindo
         function criarCoraçao() {
