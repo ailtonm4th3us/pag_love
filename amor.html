@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Amor</title>
+    <style>
+        body {
+            width: 100vw;  /* Ocupa toda a largura da tela */
+            height: 100vh; /* Ocupa toda a altura da tela */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0c0d8;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+        .line {
+            width: 90%;
+            height: 2px;
+            background-color: #e91e63;
+            margin: 20px 0;
+        }
+        img {
+            width: 400px;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 28px;
+            animation: fall 4s linear infinite;
+        }
+        @keyframes fall {
+            from {
+                transform: translateY(-5vh);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/44AyOl4qVkzS48vBsbNXaC?si=63323997a5bd423c" width="400" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    
+    <img id="photo" src="img/foto1.jpg" alt="Nosso Amor">
+    
+    <h2>Eu te amo há <span id="diasAmor"></span> dias ❤️</h2>
+    <div class="line"></div>
+    <h3>Ei minha parceirinha tu estás conversando pipoca, uma hora dessa?</h3>
+    <h3>Eu te amo!</h3>
+    <script>
+        function calcularDias() {
+            const dataInicio = new Date('2022-11-05'); // Coloque a data do início do relacionamento
+            const hoje = new Date();
+            const diferenca = Math.floor((hoje - dataInicio) / (1000 * 60 * 60 * 24));
+            document.getElementById('diasAmor').textContent = diferenca;
+        }
+        calcularDias();
+
+        // Troca automática de imagens
+        const imagens = ["img/foto1.jpg", "img/foto2.jpg", "img/foto3.jpg", "img/foto4.jpg", 
+        "img/foto5.jpg","img/foto6.jpg"]; // Adicione mais imagens se quiser
+        let index = 0;
+        function trocarImagem() {
+            index = (index + 1) % imagens.length;
+            document.getElementById('photo').src = imagens[index];
+        }
+        setInterval(trocarImagem, 3000); // Troca a cada 3 segundos
+
+        // Corações caindo
+        function criarCoraçao() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            heart.style.top = "0px";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 2 + 4 + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        }
+        setInterval(criarCoraçao, 300);
+    </script>
+</body>
+</html>
