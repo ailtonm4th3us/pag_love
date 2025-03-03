@@ -19,13 +19,13 @@
             margin: 0;
         }
         img {
-            width: 100%; /* Ajusta a imagem para ocupar 100% da largura disponível */
-            max-width: 400px; /* Limita o tamanho máximo */
-            height: auto; /* Mantém a proporção */
+            width: 100%;
+            max-width: 400px;
+            height: auto;
             object-fit: cover;
             border-radius: 10px;
             margin: 20px 0;
-            transition: opacity 0.5s ease-in-out; /* Adiciona uma transição suave */
+            transition: opacity 0.5s ease-in-out;
         }
         .heart {
             position: absolute;
@@ -57,12 +57,17 @@
     </style>
 </head>
 <body>
-    <iframe src="https://open.spotify.com/embed/track/44AyOl4qVkzS48vBsbNXaC?si=63323997a5bd423c" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    <iframe src="https://open.spotify.com/embed/track/44AyOl4qVkzS48vBsbNXaC?si=63323997a5bd423c" 
+            frameborder="0" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+            allowfullscreen></iframe>
     
     <img id="photo" src="img/foto1.jpg" alt="Nosso Amor">
     
     <h2>Eu te amo há <span id="diasAmor"></span> dias ❤️</h2>
-    <h4>Ei minha parceirinha tu estás conversando pipoca uma hora dessa?</h4>
+    <h3>Ei minha parceirinha tu estás conversando pipoca uma hora dessa?</h3>
+    <h3>Eu te amo!</h3>
+
     <script>
         function calcularDias() {
             const dataInicio = new Date('2022-11-05');
@@ -72,21 +77,19 @@
         }
         calcularDias();
 
-        // Troca de imagem sem carregar várias resoluções
         const imagens = ["img/foto1.jpg", "img/foto2.jpg", "img/foto3.jpg", "img/foto4.jpg", "img/foto5.jpg","img/foto6.jpg"];
         let index = 0;
         function trocarImagem() {
             index = (index + 1) % imagens.length;
             const img = document.getElementById('photo');
-            img.style.opacity = 0; // Fade out
+            img.style.opacity = 0; 
             setTimeout(() => {
                 img.src = imagens[index];
-                img.style.opacity = 1; // Fade in
-            }, 500); // Espera a opacidade cair para trocar a imagem
+                img.style.opacity = 1; 
+            }, 500); 
         }
         setInterval(trocarImagem, 3000);
 
-        // Corações caindo
         function criarCoraçao() {
             const heart = document.createElement("div");
             heart.classList.add("heart");
